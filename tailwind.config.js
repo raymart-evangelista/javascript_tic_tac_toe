@@ -9,7 +9,7 @@ module.exports = {
       fontFamily: {
         nunito: ['Nunito'],
         raleway: ['Raleway']
-      }
+      },
     },
   },
   plugins: [],
