@@ -7,8 +7,24 @@ const gameboard = (() => {
 })();
 
 // displaycontroller module
-const displayController = ((arr) => {
+const displayController = (() => {
   // create HTML to display
+  document.body.onload = loadBoard
+  function loadBoard() {
+    const newDiv = document.createElement("div");
+    const newContent = document.createTextNode("Hello!");
+    newDiv.appendChild(newContent);
+    const currentDiv = document.getElementById("board");
+    document.body.insertBefore(newDiv, currentDiv)
+
+    gameboard.getBoard()
+
+  }
+  const reloadBoard = () => {
+
+    return true;
+  }
+  return {reloadBoard}
 })();
 
 // flowControl module
