@@ -44,3 +44,7 @@ const jimmy = Player('Jimmy McGill', 1);
 const kim = Player('Kim Wexler', 2);
 
 // console.log
+
+function printIndex(elem) {
+  console.log(elem.id)
+}
