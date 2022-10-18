@@ -1,3 +1,10 @@
+// player factory
+const Player = (name, number) => {
+  const getName = () => name;
+  const getNumber = () => number;
+  return {getName, getNumber};
+};
+
 // gameboard module
 const gameboard = (() => {
   const board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -28,23 +35,47 @@ const displayController = (() => {
 })();
 
 // flowControl module
-const flowController = ((player1, player2) => {
-
+const flowController = ((currentPlayer) => {
+  const updateTurn = () => {
+    // if (currentPlayer)
+  }
 })();
 
-// player factory
-const Player = (name, number) => {
-  const getName = () => name;
-  const getNumber = () => number;
-  return {getName, getNumber};
-};
+
 
 // creating players
-const jimmy = Player('Jimmy McGill', 1);
-const kim = Player('Kim Wexler', 2);
+const jimmy = Player('Jimmy McGill', 0);
+const kim = Player('Kim Wexler', 1);
 
-// console.log
+const turns = (() => {
+  let defaultTurn = 0;
+  const getTurn = () => defaultTurn;
+  const updateTurn = () => {
+    if (getTurn() == 0 ) {
+      defaultTurn = 1;
+    } else {
+      defaultTurn = 0;
+    }
+  }
+  return {getTurn, updateTurn};
+})();
 
-function printIndex(elem) {
+console.log(turns.getTurn());
+turns.updateTurn();
+console.log(turns.getTurn());
+turns.updateTurn();
+console.log(turns.getTurn());
+turns.updateTurn();
+console.log(turns.getTurn());
+turns.updateTurn();
+console.log(turns.getTurn());
+
+
+function checkMove(elem) {
+
+  // when square is clicked, get square number, go into gameboard
+  // if corresponding number in index is 0, update
+  // if corresponding number in index is something else, don't update
   console.log(elem.id)
+
 }
