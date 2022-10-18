@@ -8,9 +8,16 @@ const Player = (name, number) => {
 // gameboard module
 const gameboard = (() => {
   const board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  const validateMove = (index) => {
+    if (board.at(index) == 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   const updateBoard = (index, number) => board.splice(index, 1, number)
   const getBoard = () => board;
-  return {getBoard, updateBoard};
+  return {getBoard, updateBoard, validateMove};
 })();
 
 // displaycontroller module
@@ -35,17 +42,29 @@ const displayController = (() => {
 })();
 
 // flowControl module
-const flowController = ((currentPlayer) => {
-  const updateTurn = () => {
-    // if (currentPlayer)
+const flowController = (() => {
+
+  const p1 = Player('Jimmy McGill', 0);
+  const p2 = Player('Kim Wexler', 1);
+
+  function checkMove(elem) {
+    boardIndex = elem.id;
+    // check whose turn it is currently
+    if (turns.getTurn() == p1.getNumber()) {
+      currPlayer = p1;
+    } else {
+      currPlayer = p2;
+    }
+    console.log(`The current player is ${currPlayer.getName()}`)
+    console.log(gameboard.validateMove(boardIndex))
+    // when square is clicked, get square number, go into gameboard
+    // if corresponding number in index is 0, update
+    // if corresponding number in index is something else, don't update
+    console.log(elem.id)
   }
+
+  return {checkMove}
 })();
-
-
-
-// creating players
-const jimmy = Player('Jimmy McGill', 0);
-const kim = Player('Kim Wexler', 1);
 
 const turns = (() => {
   let defaultTurn = 0;
@@ -60,22 +79,14 @@ const turns = (() => {
   return {getTurn, updateTurn};
 })();
 
-console.log(turns.getTurn());
-turns.updateTurn();
-console.log(turns.getTurn());
-turns.updateTurn();
-console.log(turns.getTurn());
-turns.updateTurn();
-console.log(turns.getTurn());
-turns.updateTurn();
-console.log(turns.getTurn());
+// console.log(turns.getTurn());
+// turns.updateTurn();
+// console.log(turns.getTurn());
+// turns.updateTurn();
+// console.log(turns.getTurn());
+// turns.updateTurn();
+// console.log(turns.getTurn());
+// turns.updateTurn();
+// console.log(turns.getTurn());
 
 
-function checkMove(elem) {
-
-  // when square is clicked, get square number, go into gameboard
-  // if corresponding number in index is 0, update
-  // if corresponding number in index is something else, don't update
-  console.log(elem.id)
-
-}
