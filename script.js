@@ -15,7 +15,7 @@ const gameboard = (() => {
       return false;
     }
   }
-  const updateBoard = (index, number) => board.splice(index, 1, number)
+  const updateBoard = (index, number) => board.splice(index, 1, number);
   const getBoard = () => board;
   return {getBoard, updateBoard, validateMove};
 })();
@@ -44,8 +44,8 @@ const displayController = (() => {
 // flowControl module
 const flowController = (() => {
 
-  const p1 = Player('Jimmy McGill', 0);
-  const p2 = Player('Kim Wexler', 1);
+  const p1 = Player('Jimmy McGill', 1);
+  const p2 = Player('Kim Wexler', 2);
 
   function checkMove(elem) {
     boardIndex = elem.id;
@@ -55,8 +55,15 @@ const flowController = (() => {
     } else {
       currPlayer = p2;
     }
-    console.log(`The current player is ${currPlayer.getName()}`)
-    console.log(gameboard.validateMove(boardIndex))
+
+    if (gameboard.validateMove(boardIndex)) {
+      // move is valid, so update gameboard
+      gameboard.updateBoard(boardIndex, currPlayer.getNumber());
+      console.log(gameboard.getBoard())
+      // update turn
+      turns.updateTurn()
+      // update display
+    }
     // when square is clicked, get square number, go into gameboard
     // if corresponding number in index is 0, update
     // if corresponding number in index is something else, don't update
@@ -67,13 +74,13 @@ const flowController = (() => {
 })();
 
 const turns = (() => {
-  let defaultTurn = 0;
+  let defaultTurn = 1;
   const getTurn = () => defaultTurn;
   const updateTurn = () => {
-    if (getTurn() == 0 ) {
-      defaultTurn = 1;
+    if (getTurn() == 1 ) {
+      defaultTurn = 2;
     } else {
-      defaultTurn = 0;
+      defaultTurn = 1;
     }
   }
   return {getTurn, updateTurn};
