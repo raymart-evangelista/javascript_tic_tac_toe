@@ -93,6 +93,13 @@ const displayController = (() => {
       htmlBoard.appendChild(newDiv);
     }
   }
+  const updateBoard = () => {
+    currBoard = gameboard.getBoard();
+    // based off of player number, update divs to turn into imgs
+    // player 1 gets JavaScript
+    // player 2 gets Ruby
+    // if board is 0, normal square
+  }
   const reloadBoard = () => {
 
     return true;
