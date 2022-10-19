@@ -92,20 +92,6 @@ const displayController = (() => {
       newDiv.onclick = function() { flowController.checkMove(newDiv) };
       htmlBoard.appendChild(newDiv);
     }
-
-
-
-
-
-
-    const newDiv = document.createElement("div");
-    const newContent = document.createTextNode("Hello!");
-    newDiv.appendChild(newContent);
-    const currentDiv = document.getElementById("board");
-    document.body.insertBefore(newDiv, currentDiv)
-
-    gameboard.getBoard()
-
   }
   const reloadBoard = () => {
 
