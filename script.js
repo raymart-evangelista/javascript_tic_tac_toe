@@ -7,7 +7,7 @@ const Player = (name, number) => {
 
 // gameboard module
 const gameboard = (() => {
-  const board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  const board = [0, 0, 1, 0, 1, 0, 0, 0, 0];
   const validateMove = (index) => {
     if (board.at(index) == 0) {
       return true;
@@ -15,9 +15,70 @@ const gameboard = (() => {
       return false;
     }
   }
+  const checkWinner = (moveIndex) => {
+    // brute force method
+    // check column win
+    let columnIndex = moveIndex % 3;
+    console.log(`columnIndex for move is ${columnIndex}`)
+    const count = gameboard.getBoard().length / 3;
+    for (let index = 0; index < count; index++) {
+      console.log(`for loop index is: ${index}`)
+      console.log(`value at index: ${getBoard().at(columnIndex)}, turn index: ${turns.getTurn()}`)
+      if (getBoard().at(columnIndex) != turns.getTurn()) {
+        break;
+      }
+      if (index == count - 1) {
+        return true;
+      }
+      columnIndex = columnIndex + 3
+    }
+    // check row win
+    let rowIndex = null;
+    if ([0,1,2].includes(moveIndex)) {
+      rowIndex = 0
+    } else if ([3,4,5].includes(moveIndex)) {
+      rowIndex = 3
+    } else {
+      rowIndex = 6
+    }
+    for (let index = 0; index < count; index++) {
+      if (getBoard().at(rowIndex) != turns.getTurn()) {
+        break;
+      }
+      if (index == count - 1) {
+        return true;
+      }
+      rowIndex = rowIndex + 1;
+    }
+    // check diagonal win
+    if ([0,4,8].includes(moveIndex)) {
+      let diagIndex = 0;
+      for (let index = 0; index < count; index++) {
+        if (getBoard().at(diagIndex) != turns.getTurn()) {
+          break;
+        }
+        if (index == count - 1) {
+          return true;
+        }
+        diagIndex = diagIndex + 4;
+      }
+    } else if ([2, 4, 6].includes(moveIndex)) {
+      let diagIndex = 2;
+      for (let index = 0; index < count; index++) {
+        if (getBoard().at(diagIndex) != turns.getTurn()) {
+          break;
+        }
+        if (index == count - 1) {
+          return true;
+        }
+        diagIndex = diagIndex + 2;
+      }
+    }
+    return false;
+  }
   const updateBoard = (index, number) => board.splice(index, 1, number);
   const getBoard = () => board;
-  return {getBoard, updateBoard, validateMove};
+  return {getBoard, updateBoard, validateMove, checkWinner};
 })();
 
 // displaycontroller module
@@ -44,11 +105,11 @@ const displayController = (() => {
 // flowControl module
 const flowController = (() => {
 
-  const p1 = Player('Jimmy McGill', 1);
-  const p2 = Player('Kim Wexler', 2);
+  const p1 = Player('Javascript', 1);
+  const p2 = Player('Ruby', 2);
 
   function checkMove(elem) {
-    boardIndex = elem.id;
+    boardIndex = parseInt(elem.id);
     // check whose turn it is currently
     if (turns.getTurn() == p1.getNumber()) {
       currPlayer = p1;
@@ -61,13 +122,15 @@ const flowController = (() => {
       gameboard.updateBoard(boardIndex, currPlayer.getNumber());
       console.log(gameboard.getBoard())
       // update turn
-      turns.updateTurn()
       // update display
+      // check winner
+      console.log(gameboard.checkWinner(boardIndex));
+      turns.updateTurn()
+
     }
     // when square is clicked, get square number, go into gameboard
     // if corresponding number in index is 0, update
     // if corresponding number in index is something else, don't update
-    console.log(elem.id)
   }
 
   return {checkMove}
