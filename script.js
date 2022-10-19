@@ -7,7 +7,7 @@ const Player = (name, number) => {
 
 // gameboard module
 const gameboard = (() => {
-  const board = [0, 0, 1, 0, 1, 0, 0, 0, 0];
+  const board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   const validateMove = (index) => {
     if (board.at(index) == 0) {
       return true;
@@ -19,11 +19,8 @@ const gameboard = (() => {
     // brute force method
     // check column win
     let columnIndex = moveIndex % 3;
-    console.log(`columnIndex for move is ${columnIndex}`)
     const count = gameboard.getBoard().length / 3;
     for (let index = 0; index < count; index++) {
-      console.log(`for loop index is: ${index}`)
-      console.log(`value at index: ${getBoard().at(columnIndex)}, turn index: ${turns.getTurn()}`)
       if (getBoard().at(columnIndex) != turns.getTurn()) {
         break;
       }
@@ -84,8 +81,23 @@ const gameboard = (() => {
 // displaycontroller module
 const displayController = (() => {
   // create HTML to display
-  document.body.onload = loadBoard
-  function loadBoard() {
+  document.body.onload = createBoard
+  function createBoard() {
+    const htmlBoard = document.getElementById("game-board");
+    for (let index = 0; index < gameboard.getBoard().length; index++) {
+      let newDiv = document.createElement("div");
+      newDiv.id = index;
+      newDiv.className = "aspect-square p-8 bg-purple-300 hover:bg-purple-500";
+      // newDiv.addEventListener("click", flowController.checkMove(newDiv));
+      newDiv.onclick = function() { flowController.checkMove(newDiv) };
+      htmlBoard.appendChild(newDiv);
+    }
+
+
+
+
+
+
     const newDiv = document.createElement("div");
     const newContent = document.createTextNode("Hello!");
     newDiv.appendChild(newContent);
@@ -110,6 +122,7 @@ const flowController = (() => {
 
   function checkMove(elem) {
     boardIndex = parseInt(elem.id);
+    console.log(`the board index is: ${boardIndex}`)
     // check whose turn it is currently
     if (turns.getTurn() == p1.getNumber()) {
       currPlayer = p1;
@@ -120,13 +133,17 @@ const flowController = (() => {
     if (gameboard.validateMove(boardIndex)) {
       // move is valid, so update gameboard
       gameboard.updateBoard(boardIndex, currPlayer.getNumber());
-      console.log(gameboard.getBoard())
-      // update turn
+      // console.log(gameboard.getBoard())
       // update display
       // check winner
-      console.log(gameboard.checkWinner(boardIndex));
+      // console.log(gameboard.checkWinner(boardIndex));
+      if (gameboard.checkWinner(boardIndex)) {
+        console.log(`We have a winner! The winner is ${currPlayer.getName()}`)
+      }
       turns.updateTurn()
 
+    } else {
+      // do nothing
     }
     // when square is clicked, get square number, go into gameboard
     // if corresponding number in index is 0, update
@@ -148,15 +165,5 @@ const turns = (() => {
   }
   return {getTurn, updateTurn};
 })();
-
-// console.log(turns.getTurn());
-// turns.updateTurn();
-// console.log(turns.getTurn());
-// turns.updateTurn();
-// console.log(turns.getTurn());
-// turns.updateTurn();
-// console.log(turns.getTurn());
-// turns.updateTurn();
-// console.log(turns.getTurn());
 
 
