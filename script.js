@@ -107,11 +107,17 @@ const displayController = (() => {
     // player 2 gets Ruby
     // if board is 0, normal square
   }
-  const reloadBoard = () => {
-
-    return true;
+  const placeOverlay = () => {
+    const htmlBody = document.body;
+    const htmlBoard = document.getElementById("game-board");
+    const overlay = document.createElement("div");
+    overlay.id = "overlay";
+    // overlay.className = "absolute self-center justify-self-center border-4 border-red-600 bg-gray-500 opacity-40";
+    overlay.className = "absolute w-screen h-screen bg-gray-500 opacity-40"
+    htmlBody.insertBefore(overlay, htmlBoard);
+    // htmlBoard.append(overlay);
   }
-  return {reloadBoard, updateBoard}
+  return {updateBoard, placeOverlay}
 })();
 
 // flowControl module
@@ -139,6 +145,7 @@ const flowController = (() => {
       displayController.updateBoard(boardIndex, currPlayer.getNumber());
       // check winner
       if (gameboard.checkWinner(boardIndex)) {
+        displayController.placeOverlay();
         console.log(`We have a winner! The winner is ${currPlayer.getName()}`)
       }
       turns.updateTurn()
