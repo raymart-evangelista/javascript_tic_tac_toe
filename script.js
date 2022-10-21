@@ -113,7 +113,7 @@ const displayController = (() => {
     const overlay = document.createElement("div");
     overlay.id = "overlay";
     // overlay.className = "absolute self-center justify-self-center border-4 border-red-600 bg-gray-500 opacity-40";
-    overlay.className = "flex flex-col justify-center absolute w-screen h-screen bg-gray-500 opacity-70"
+    overlay.className = "absolute w-screen h-screen bg-gray-500 opacity-70"
     htmlBody.insertBefore(overlay, htmlBoard);
     // htmlBoard.append(overlay);
     placeInfo(overlay, currPlayer);
@@ -126,8 +126,10 @@ const displayController = (() => {
     const winnerText = document.createElement("h2");
     winnerText.className = "text-center"
     winnerText.textContent = `The winner is ${currPlayer.getName()}!`
+
     const playAgain = document.createElement("button");
     playAgain.textContent = "Play again?"
+    playAgain.onclick = function() { window.location.reload(); }
 
     htmlBody.insertBefore(infoContainer, overlay);
 
