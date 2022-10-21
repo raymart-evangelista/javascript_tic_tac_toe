@@ -124,7 +124,7 @@ const displayController = (() => {
 
     const infoContainer = document.createElement("div");
     infoContainer.id = "infoContainer"
-    infoContainer.className = "flex flex-col z-10 p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md"
+    infoContainer.className = "flex flex-col gap-4 place-items-center justify-items-center z-10 p-10 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md"
 
     const wrapper = document.createElement("div");
     wrapper.id = "wrapper"
@@ -154,8 +154,8 @@ const displayController = (() => {
   return {updateBoard, placeOverlay}
 })();
 
-// const p1 = Player('Javascript', 1);
-// displayController.placeOverlay(p1);
+const p1 = Player('Javascript', 1);
+displayController.placeOverlay(p1);
 
 
 // flowControl module
