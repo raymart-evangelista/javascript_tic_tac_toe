@@ -110,13 +110,12 @@ const displayController = (() => {
   }
   const placeOverlay = (currPlayer) => {
     const htmlBody = document.body;
-    const htmlBoard = document.getElementById("game-board");
+
     const overlay = document.createElement("div");
     overlay.id = "overlay";
-    // overlay.className = "absolute self-center justify-self-center border-4 border-red-600 bg-gray-500 opacity-40";
     overlay.className = "absolute w-screen h-screen bg-gray-500 opacity-70"
-    htmlBody.insertBefore(overlay, htmlBoard);
-    // htmlBoard.append(overlay);
+
+    htmlBody.prepend(overlay)
     placeInfo(overlay, currPlayer);
   }
   function placeInfo(overlay, currPlayer) {
@@ -148,14 +147,11 @@ const displayController = (() => {
 
     wrapper.appendChild(infoContainer)
     
-
-    htmlBody.insertBefore(wrapper, overlay);
+    htmlBody.prepend(wrapper)
   }
   return {updateBoard, placeOverlay}
 })();
 
-const p1 = Player('Javascript', 1);
-displayController.placeOverlay(p1);
 
 
 // flowControl module

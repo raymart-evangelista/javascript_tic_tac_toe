@@ -7,22 +7,13 @@
   <title>Tic Tac Toe</title>
   <link rel="stylesheet" href="./dist/output.css">
 </head>
-<body class="font-raleway">
-  <div id="game-board" class="grid grid-cols-3 gap-8 p-8 border-8 border-pink-500">
-    <!-- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" /> -->
-    <!-- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-plain-wordmark.svg" /> -->
-
-    <!-- <div id="0" class="aspect-square p-8 bg-purple-300 hover:bg-purple-500" onclick="flowController.checkMove(this)"></div>
-    <div id="1" class="aspect-square p-8 bg-purple-300 hover:bg-purple-500" onclick="flowController.checkMove(this)"></div>
-    <div id="2" class="aspect-square p-8 bg-purple-300 hover:bg-purple-500" onclick="flowController.checkMove(this)"></div>
-
-    <div id="3" class="aspect-square p-8 bg-purple-300 hover:bg-purple-500" onclick="flowController.checkMove(this)"></div>
-    <div id="4" class="aspect-square p-8 bg-purple-300 hover:bg-purple-500" onclick="flowController.checkMove(this)"></div>
-    <div id="5" class="aspect-square p-8 bg-purple-300 hover:bg-purple-500" onclick="flowController.checkMove(this)"></div>
-
-    <div id="6" class="aspect-square p-8 bg-purple-300 hover:bg-purple-500" onclick="flowController.checkMove(this)"></div>
-    <div id="7" class="aspect-square p-8 bg-purple-300 hover:bg-purple-500" onclick="flowController.checkMove(this)"></div>
-    <div id="8" class="aspect-square p-8 bg-purple-300 hover:bg-purple-500" onclick="flowController.checkMove(this)"></div> -->
+<body class="flex justify-center items-center h-screen font-raleway bg-white dark:bg-gray-800">
+  <div id="screen-wrapper" class="w-screen h-screen flex flex-col place-items-center justify-items-center pt-16">
+    <div id="title" class="flex flex-col place-items-center justify-items-center text-black dark:text-white">
+      <h1 class="text-2xl ">JavaScript vs Ruby</h1>
+      <h1 class="text-xl">Tic Tac Toe</h1>
+    </div>
+    <div id="game-board" class="xl:w-1/3 grid grid-cols-3 gap-4 p-4 m-4"></div>
   </div>
   <script src="script.js"></script>
 </body>
