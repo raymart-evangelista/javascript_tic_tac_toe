@@ -107,15 +107,32 @@ const displayController = (() => {
     // player 2 gets Ruby
     // if board is 0, normal square
   }
-  const placeOverlay = () => {
+  const placeOverlay = (currPlayer) => {
     const htmlBody = document.body;
     const htmlBoard = document.getElementById("game-board");
     const overlay = document.createElement("div");
     overlay.id = "overlay";
     // overlay.className = "absolute self-center justify-self-center border-4 border-red-600 bg-gray-500 opacity-40";
-    overlay.className = "absolute w-screen h-screen bg-gray-500 opacity-40"
+    overlay.className = "flex flex-col justify-center absolute w-screen h-screen bg-gray-500 opacity-70"
     htmlBody.insertBefore(overlay, htmlBoard);
     // htmlBoard.append(overlay);
+    placeInfo(overlay, currPlayer);
+  }
+  function placeInfo(overlay, currPlayer) {
+    const htmlBody = document.body;
+
+    const infoContainer = document.createElement("div");
+    infoContainer.className = "absolute z-10 p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md"
+    const winnerText = document.createElement("h2");
+    winnerText.className = "text-center"
+    winnerText.textContent = `The winner is ${currPlayer.getName()}!`
+    const playAgain = document.createElement("button");
+    playAgain.textContent = "Play again?"
+
+    htmlBody.insertBefore(infoContainer, overlay);
+
+    infoContainer.appendChild(winnerText);
+    infoContainer.appendChild(playAgain);
   }
   return {updateBoard, placeOverlay}
 })();
@@ -145,7 +162,7 @@ const flowController = (() => {
       displayController.updateBoard(boardIndex, currPlayer.getNumber());
       // check winner
       if (gameboard.checkWinner(boardIndex)) {
-        displayController.placeOverlay();
+        displayController.placeOverlay(currPlayer);
         console.log(`We have a winner! The winner is ${currPlayer.getName()}`)
       }
       turns.updateTurn()
