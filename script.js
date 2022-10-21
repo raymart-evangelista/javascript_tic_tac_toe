@@ -73,9 +73,10 @@ const gameboard = (() => {
     }
     return false;
   }
+  const checkDraw = () => { return !board.includes(0); }
   const updateBoard = (index, number) => board.splice(index, 1, number);
   const getBoard = () => board;
-  return {getBoard, updateBoard, validateMove, checkWinner};
+  return {getBoard, updateBoard, validateMove, checkWinner, checkDraw};
 })();
 
 // displaycontroller module
@@ -122,22 +123,40 @@ const displayController = (() => {
     const htmlBody = document.body;
 
     const infoContainer = document.createElement("div");
-    infoContainer.className = "absolute z-10 p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md"
+    infoContainer.id = "infoContainer"
+    infoContainer.className = "flex flex-col z-10 p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md"
+
+    const wrapper = document.createElement("div");
+    wrapper.id = "wrapper"
+    wrapper.className = "absolute grid w-screen h-screen place-items-center justify-items-center"
+    
     const winnerText = document.createElement("h2");
     winnerText.className = "text-center"
-    winnerText.textContent = `The winner is ${currPlayer.getName()}!`
+    if (currPlayer === undefined) {
+      winnerText.textContent = 'The game ends in a draw!';
+    } else {
+      winnerText.textContent = `The winner is ${currPlayer.getName()}!`;
+    }
 
     const playAgain = document.createElement("button");
     playAgain.textContent = "Play again?"
+    playAgain.className = "focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800";
     playAgain.onclick = function() { window.location.reload(); }
-
-    htmlBody.insertBefore(infoContainer, overlay);
-
+    
     infoContainer.appendChild(winnerText);
     infoContainer.appendChild(playAgain);
+
+    wrapper.appendChild(infoContainer)
+    
+
+    htmlBody.insertBefore(wrapper, overlay);
   }
   return {updateBoard, placeOverlay}
 })();
+
+// const p1 = Player('Javascript', 1);
+// displayController.placeOverlay(p1);
+
 
 // flowControl module
 const flowController = (() => {
@@ -166,7 +185,11 @@ const flowController = (() => {
       if (gameboard.checkWinner(boardIndex)) {
         displayController.placeOverlay(currPlayer);
         console.log(`We have a winner! The winner is ${currPlayer.getName()}`)
+      } else if (gameboard.checkDraw()) {
+        displayController.placeOverlay();
+        console.log('The game ends in a draw!');
       }
+      // do something if no one wins
       turns.updateTurn()
 
     } else {
