@@ -93,9 +93,16 @@ const displayController = (() => {
       htmlBoard.appendChild(newDiv);
     }
   }
-  const updateBoard = () => {
-    currBoard = gameboard.getBoard();
+  const updateBoard = (index, playerNum) => {
     // based off of player number, update divs to turn into imgs
+    const div = document.getElementById(index);
+    const img = document.createElement("img");
+    if (playerNum == 1) {
+      img.src = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg';
+    } else {
+      img.src = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-plain-wordmark.svg';
+    }
+    div.replaceWith(img);
     // player 1 gets JavaScript
     // player 2 gets Ruby
     // if board is 0, normal square
@@ -104,7 +111,7 @@ const displayController = (() => {
 
     return true;
   }
-  return {reloadBoard}
+  return {reloadBoard, updateBoard}
 })();
 
 // flowControl module
@@ -128,8 +135,9 @@ const flowController = (() => {
       gameboard.updateBoard(boardIndex, currPlayer.getNumber());
       // console.log(gameboard.getBoard())
       // update display
+      console.log(`current player: ${currPlayer.getNumber()}, boardIndex: ${boardIndex}`);
+      displayController.updateBoard(boardIndex, currPlayer.getNumber());
       // check winner
-      // console.log(gameboard.checkWinner(boardIndex));
       if (gameboard.checkWinner(boardIndex)) {
         console.log(`We have a winner! The winner is ${currPlayer.getName()}`)
       }
