@@ -113,7 +113,7 @@ const displayController = (() => {
 
     const overlay = document.createElement("div");
     overlay.id = "overlay";
-    overlay.className = "absolute w-screen h-screen bg-gray-500 opacity-70"
+    overlay.className = "fixed w-screen h-screen bg-gray-500 opacity-70"
 
     htmlBody.prepend(overlay)
     placeInfo(overlay, currPlayer);
